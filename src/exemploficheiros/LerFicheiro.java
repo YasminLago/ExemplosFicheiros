@@ -73,7 +73,7 @@ public class LerFicheiro {
         }
 
     }
-    public void lerRexistros(String nomeFich) {
+    public ArrayList<Alumnos> lerRexistros(String nomeFich) {
         Scanner sc = null;
         try {
             File f = new File(nomeFich);
@@ -93,9 +93,9 @@ public class LerFicheiro {
         return lista;
 
     }
-    public ArrayList<Alumnos> visualizarArray(){       
+    public void visualizarArray(){       
             System.out.println(lista);
         
     
-}
+    }
 }
