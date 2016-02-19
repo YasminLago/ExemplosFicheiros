@@ -110,28 +110,29 @@ public class LerFicheiro {
             //Abrimos o ficheiro para ler
             ler = new Scanner(f);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(LerFicheiro.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro lectura" + ex.toString());
+        } finally {
+            ler.close();
         }
         while (ler.hasNextLine()) {
             String res = ler.nextLine();
             String[] datos = res.split(",");
             lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
-            
-            PrintWriter escribir=null;
+
+            PrintWriter escribir = null;
             try {
                 //Abrimos ficheiro para escribir
                 escribir = new PrintWriter(f);
+                if (Integer.parseInt(datos[3]) % 2 == 0) {
+                    escribir.println(lista);
+                }
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(LerFicheiro.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (Integer.parseInt(datos[3]) % 2 == 0) {
-                escribir.println(lista);
-            }
-            finally{
-            escribir.close();
-                
+                System.out.println("Erro escritura" + ex.toString());
+            } finally {
+                escribir.close();
 
-        }}
+            }
+        }
 
     }
 
