@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -102,23 +104,34 @@ public class LerFicheiro {
     }
 
     public void lerEscribirFich(String nomFich) {
-        Scanner sc = null;
+        Scanner ler = null;
         File f = new File(nomFich);
-
-        sc = new Scanner(f);
-        while (sc.hasNextLine()) {
-            String res = sc.nextLine();
+        try {
+            //Abrimos o ficheiro para ler
+            ler = new Scanner(f);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LerFicheiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        while (ler.hasNextLine()) {
+            String res = ler.nextLine();
             String[] datos = res.split(",");
             lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
-            PrintWriter escribir = null;
-
-            //Abrimos ficheiro para escribir
-            escribir = new PrintWriter(f);
+            
+            PrintWriter escribir=null;
+            try {
+                //Abrimos ficheiro para escribir
+                escribir = new PrintWriter(f);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(LerFicheiro.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (Integer.parseInt(datos[3]) % 2 == 0) {
                 escribir.println(lista);
             }
+            finally{
+            escribir.close();
+                
 
-        }
+        }}
 
     }
 
