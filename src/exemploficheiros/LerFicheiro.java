@@ -2,6 +2,7 @@ package exemploficheiros;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +11,8 @@ import java.util.Scanner;
  * @author ylagorebollar
  */
 public class LerFicheiro {
-    ArrayList<Alumnos>lista=new ArrayList();
+
+    ArrayList<Alumnos> lista = new ArrayList();
 
     public void lerFich(String nomeFich) {
         //Creamos obxeto da clase File
@@ -73,29 +75,51 @@ public class LerFicheiro {
         }
 
     }
+
     public ArrayList<Alumnos> lerRexistros(String nomeFich) {
         Scanner sc = null;
         try {
             File f = new File(nomeFich);
             sc = new Scanner(f);
             while (sc.hasNextLine()) {
-               String res = sc.nextLine();
-               String[]datos=res.split(",");
-               //System.out.println(datos[0]+"**"+datos[1]+"**"+datos[2]+"**"+datos[3]);             
-            lista.add(new Alumnos(datos[0],datos[1],Integer.parseInt(datos[3])));
+                String res = sc.nextLine();
+                String[] datos = res.split(",");
+                lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Erro1 " + ex.toString());
         } finally {
             sc.close();
-        
+
         }
         return lista;
 
     }
-    public void visualizarArray(){       
-            System.out.println(lista);
-        
-    
+
+    public void visualizarArray() {
+        System.out.println(lista);
+
     }
+
+    public void lerEscribirFich(String nomFich) {
+        Scanner sc = null;
+        File f = new File(nomFich);
+
+        sc = new Scanner(f);
+        while (sc.hasNextLine()) {
+            String res = sc.nextLine();
+            String[] datos = res.split(",");
+            lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
+            PrintWriter escribir = null;
+
+            //Abrimos ficheiro para escribir
+            escribir = new PrintWriter(f);
+            if (Integer.parseInt(datos[3]) % 2 == 0) {
+                escribir.println(lista);
+            }
+
+        }
+
+    }
+
 }
