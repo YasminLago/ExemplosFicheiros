@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -109,6 +107,9 @@ public class LerFicheiro {
         try {
             //Abrimos o ficheiro para ler
             ler = new Scanner(f);
+            while (ler.hasNext()) {
+                System.out.println("** " + ler.next());
+            }
         } catch (FileNotFoundException ex) {
             System.out.println("Erro lectura" + ex.toString());
         } finally {
@@ -124,7 +125,7 @@ public class LerFicheiro {
                 //Abrimos ficheiro para escribir
                 escribir = new PrintWriter(f);
                 if (Integer.parseInt(datos[3]) % 2 == 0) {
-                    escribir.println(lista);
+                    escribir.println(datos[3]);
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("Erro escritura" + ex.toString());
