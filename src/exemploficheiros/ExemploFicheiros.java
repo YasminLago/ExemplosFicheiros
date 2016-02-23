@@ -24,7 +24,7 @@ public class ExemploFicheiros {
       //obxLer.lerRexistros("alumnos");*/
       //obxLer.visualizarArray();
       f.escribir("num");
-      obxLer.lerEscribirFich("notasPares");
+      obxLer.lerEscribirFich("alumnos","nota");
     }
     
 }
