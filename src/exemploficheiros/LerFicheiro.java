@@ -84,7 +84,7 @@ public class LerFicheiro {
             while (sc.hasNextLine()) {
                 String res = sc.nextLine();
                 String[] datos = res.split(",");
-                lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
+                lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[2])));
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Erro1 " + ex.toString());
@@ -101,40 +101,29 @@ public class LerFicheiro {
 
     }
 
-    public void lerEscribirFich(String nomFich) {
+    public void lerEscribirFich(String nomFichLec,String nomFichEsc) {
         Scanner ler = null;
-        File f = new File(nomFich);
+        PrintWriter escribir=null;
+        
         try {
-            //Abrimos o ficheiro para ler
-            ler = new Scanner(f);
-            while (ler.hasNext()) {
-                System.out.println("** " + ler.next());
+            File l = new File(nomFichLec);
+            File e = new File(nomFichEsc);
+           
+            ler = new Scanner(l);
+            escribir=new PrintWriter(e);
+            while (ler.hasNextLine()) {
+                String res=ler.nextLine();
+                String[]datos=res.split(",");
+                if (Integer.parseInt(datos[2]) % 2 == 0) 
+                    escribir.println(datos[0]+","+ datos[1]+","+ Integer.parseInt(datos[2]));
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Erro lectura" + ex.toString());
+            System.out.println("Erro no ficheiro" + ex.toString());
         } finally {
-            ler.close();
-        }
-        while (ler.hasNextLine()) {
-            String res = ler.nextLine();
-            String[] datos = res.split(",");
-            lista.add(new Alumnos(datos[0], datos[1], Integer.parseInt(datos[3])));
-
-            PrintWriter escribir = null;
-            try {
-                //Abrimos ficheiro para escribir
-                escribir = new PrintWriter(f);
-                if (Integer.parseInt(datos[3]) % 2 == 0) {
-                    escribir.println(datos[3]);
-                }
-            } catch (FileNotFoundException ex) {
-                System.out.println("Erro escritura" + ex.toString());
-            } finally {
+                ler.close();
                 escribir.close();
-
-            }
+            
         }
-
     }
 
 }
